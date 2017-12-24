@@ -20,7 +20,7 @@ def to_prob(vec):
     s = sum(vec)
     return [v / s for v in vec]
 
-def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10):
+def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10, restart_seq=False):
     n_patterns = len(patterns)
 
     # Randomly choose a pattern to start text generation
@@ -48,10 +48,15 @@ def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10):
         pattern = pattern[1:]
 
         if is_end(char):
-            start = np.random.randint(0, n_patterns - 1)
-            pattern = patterns[start]
+            if restart_seq:
+                start = np.random.randint(0, n_patterns - 1)
+                pattern = patterns[start]
+                print()
+
             cnt += 1 
-            print()
+    
+    if not restart_seq:
+        print()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate text')
@@ -61,6 +66,8 @@ if __name__ == '__main__':
                         help='model for text generation')
     parser.add_argument('--n-sent', type=int, default=10, metavar='N',
                         help='number of sentences to generate (default: 10)')
+    parser.add_argument('--restart-seq', action='store_true', 
+                        help='whether to randomly pick a new sequence to start the next sentence generation (default: F)')
 
     args = parser.parse_args()
 
@@ -69,6 +76,6 @@ if __name__ == '__main__':
 
     # Load model
     model = torch.load(args.model)
-
+    
     # Generate text
-    gen_text(model, dataX, char_to_int, int_to_char, chars, n_sent=args.n_sent)
+    gen_text(model, dataX, char_to_int, int_to_char, chars, n_sent=args.n_sent, restart_seq=args.restart_seq)
