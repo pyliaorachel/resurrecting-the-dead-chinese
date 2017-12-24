@@ -57,6 +57,8 @@ if __name__ == '__main__':
                         help='number of epochs to train (default: 30)')
     parser.add_argument('--log-interval', type=int, default=10, metavar='N',
                         help='number of batches to wait before logging status (default: 10)')
+    parser.add_argument('--save-interval', type=int, default=10, metavar='N',
+                        help='number of epochs to wait before saving model (default: 10)')
     parser.add_argument('--output', type=str, default='model.bin', metavar='F',
                         help='output model file')
     parser.add_argument('--output-c', type=str, default='corpus.bin', metavar='F',
@@ -71,6 +73,10 @@ if __name__ == '__main__':
     # Train
     for epoch in range(args.epochs):
         train(model, optimizer, epoch, train_data, log_interval=args.log_interval)
+
+        if (epoch + 1) % args.save_interval == 0:
+            model.eval()
+            torch.save(model, args.output)
 
     # Save mappings, vocabs, & model
     save_pickle((dataX, char_to_int, int_to_char, chars), args.output_c)
