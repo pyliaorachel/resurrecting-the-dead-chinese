@@ -3,6 +3,7 @@ import pickle
 
 import numpy as np
 import torch
+import torch.nn.functional as F
 from torch.autograd import Variable
 
 
@@ -14,6 +15,10 @@ def load_pickle(path):
 def is_end(c):
     end_tokens = ['。', '？', '！', '.', '?', '!']
     return c in end_tokens
+
+def to_prob(vec):
+    s = sum(vec)
+    return [v / s for v in vec]
 
 def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10):
     n_patterns = len(patterns)
@@ -33,9 +38,9 @@ def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10):
 
         # Predict next character
         pred = model(seq_in)
-        _, char_idx = pred.data.max(1)
-        char_idx = char_idx[0] # unwrap tensor
-        char = int_to_char[char_idx]
+        pred = to_prob(F.softmax(pred).data[0].numpy()) # turn into probability distribution
+        char = np.random.choice(chars, p=pred)          # pick char based on probability instead of always picking the highest value
+        char_idx = char_to_int[char]
         print(char, end='')
 
         # Append predicted character to pattern, truncate to usual pattern size, use as new pattern
