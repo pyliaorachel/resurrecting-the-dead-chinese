@@ -2,9 +2,9 @@
 
 Text generation system based on a mixed corpus of 《毛澤東語錄》(Quotations From Chairman Mao Tse-Tung) and《論語》(Confucian Analects).
 
-| Framework | PyTorch |
-| Model | RNN (LSTM) |
-| Optimizer | Adam |
+|Framework|Model|Optimizer|
+|:-:|:-:|:-:|
+| PyTorch | RNN (LSTM) | Adam |
 
 [穿越時空的偉人：用PyTorch重現偉人們的神經網絡](https://pyliaorachel.github.io/blog/tech/nlp/2017/12/24/resurrecting-the-dead-chinese.html)
 
