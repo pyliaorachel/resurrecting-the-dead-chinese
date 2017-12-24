@@ -38,8 +38,8 @@ def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10):
 
         # Predict next character
         pred = model(seq_in)
-        pred = to_prob(F.softmax(pred).data[0].numpy()) # turn into probability distribution
-        char = np.random.choice(chars, p=pred)          # pick char based on probability instead of always picking the highest value
+        pred = to_prob(F.softmax(pred, dim=1).data[0].numpy()) # turn into probability distribution
+        char = np.random.choice(chars, p=pred)                 # pick char based on probability instead of always picking the highest value
         char_idx = char_to_int[char]
         print(char, end='')
 
