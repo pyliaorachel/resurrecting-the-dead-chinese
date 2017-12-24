@@ -13,8 +13,7 @@ class Net(nn.Module):
         self.hidden_dim = hidden_dim
 
         self.embeddings = nn.Embedding(n_vocab, embedding_dim)
-        self.lstm = nn.LSTM(embedding_dim, hidden_dim)
-        self.dropout = nn.Dropout(p=dropout)
+        self.lstm = nn.LSTM(embedding_dim, hidden_dim, dropout=dropout)
         self.hidden2out = nn.Linear(hidden_dim, n_vocab)
 
     def forward(self, seq_in):
@@ -24,7 +23,6 @@ class Net(nn.Module):
                                                  # Combined in lstm_out = (seq_length, batch_size, hidden_dim) 
         ht = lstm_out[-1]                        # ht = last hidden state = (batch_size, hidden_dim)
                                                  # Use the last hidden state to predict the following character
-        ht = self.dropout(ht)                    # Dropout for regularization
         out = self.hidden2out(ht)                # Fully-connected layer, predict (batch_size, n_vocab)
 
         return out

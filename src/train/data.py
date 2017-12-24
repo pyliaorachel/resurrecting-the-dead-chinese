@@ -37,7 +37,7 @@ def format_data(dataX, dataY, n_classes, batch_size=64):
     X = dataX[:n_patterns]
     Y = dataY[:n_patterns]
 
-    # Normalize & parse X
+    # Parse X
     X = np.array(X)
     _, seq_length = X.shape
     X = X.reshape(-1, batch_size, seq_length)
