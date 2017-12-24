@@ -60,9 +60,9 @@ def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10, restar
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate text')
-    parser.add_argument('--corpus', type=str, metavar='F',
+    parser.add_argument('corpus', type=str, metavar='F',
                         help='corpus-related data file')
-    parser.add_argument('--model', type=str, metavar='F',
+    parser.add_argument('model', type=str, metavar='F',
                         help='model for text generation')
     parser.add_argument('--n-sent', type=int, default=10, metavar='N',
                         help='number of sentences to generate (default: 10)')
