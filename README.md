@@ -1,5 +1,7 @@
 # Resurrecting the Dead - Chinese
 
+![](https://github.com/pyliaorachel/resurrecting-the-dead-chinese/blob/master/img/icon.png?raw=true)
+
 Text generation system based on a mixed corpus of 《毛澤東語錄》(Quotations From Chairman Mao Tse-Tung) and《論語》(Confucian Analects).
 
 |Framework|Model|Optimizer|
