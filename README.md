@@ -15,6 +15,9 @@ Text generation system based on a mixed corpus of 《毛澤東語錄》(Quotatio
 ```bash
 $ cd src/corpus
 $ python3 mix.py <first-corpus> <second-corpus> --output <output-corpus-text-file>
+
+# Or directly run
+$ ./run.sh
 ```
 
 ###### Train
@@ -25,6 +28,9 @@ $ python3 -m train.train <corpus-text-file>
 
 # For more options
 $ python3 -m train.train -h
+
+# Or directly run
+$ ./train.sh
 ```
 
 Outputs:
@@ -40,6 +46,9 @@ $ python3 -m generate_text.gen <corpus-bin-file> <model-bin-file>
 
 # For more options
 $ python3 -m generate_text.gen -h
+
+# Or directly run
+$ ./gen.sh
 ```
 
 ## Structure
